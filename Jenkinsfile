@@ -4,6 +4,8 @@ pipeline {
     environment {
         IMAGE_NAME = "my-nginx"
         CONTAINER_NAME = "webserver"
+        HOST_PORT = "3000"
+        CONTAINER_PORT = "80"
     }
 
     stages {
@@ -14,11 +16,17 @@ pipeline {
             }
         }
 
-        stage('Verify') {
+        stage('Verify Files') {
             steps {
                 sh '''
+                echo "Current Directory:"
                 pwd
+
+                echo "Workspace Files:"
                 ls -la
+
+                test -f Dockerfile
+                test -f index.html
                 '''
             }
         }
@@ -39,10 +47,13 @@ pipeline {
             }
         }
 
-        stage('Run Docker Container') {
+        stage('Run Container') {
             steps {
                 sh '''
-                docker run -d --name webserver -p 3000:80 my-nginx
+                docker run -d \
+                  --name webserver \
+                  -p 3000:80 \
+                  my-nginx
                 '''
             }
         }
@@ -50,8 +61,13 @@ pipeline {
         stage('Verify Deployment') {
             steps {
                 sh '''
+                sleep 5
+
                 docker ps
-                curl http://localhost
+
+                echo "Checking application..."
+
+                curl http://localhost:3000
                 '''
             }
         }
@@ -59,7 +75,7 @@ pipeline {
 
     post {
         always {
-            echo "Pipeline Finished"
+            sh 'docker ps -a || true'
         }
 
         success {
