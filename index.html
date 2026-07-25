@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevOps Infrastructure Project</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+background:linear-gradient(135deg,#0f172a,#1e3a8a,#0ea5e9);
+background-size:400% 400%;
+animation:bg 12s ease infinite;
+color:white;
+
+}
+
+@keyframes bg{
+
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+
+}
+
+.container{
+
+width:90%;
+max-width:1200px;
+margin:auto;
+
+}
+
+header{
+
+text-align:center;
+padding:70px 0;
+
+}
+
+header h1{
+
+font-size:52px;
+font-weight:700;
+margin-bottom:20px;
+
+}
+
+header p{
+
+font-size:22px;
+opacity:.9;
+
+}
+
+.hero{
+
+background:rgba(255,255,255,.12);
+backdrop-filter:blur(12px);
+padding:50px;
+border-radius:20px;
+margin-top:30px;
+box-shadow:0 10px 30px rgba(0,0,0,.3);
+text-align:center;
+
+}
+
+.hero h2{
+
+font-size:38px;
+margin-bottom:20px;
+
+}
+
+.hero p{
+
+font-size:18px;
+line-height:1.8;
+
+}
+
+.section-title{
+
+margin:60px 0 30px;
+text-align:center;
+font-size:36px;
+
+}
+
+.cards{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+
+}
+
+.card{
+
+background:white;
+color:#222;
+padding:25px;
+border-radius:18px;
+text-align:center;
+transition:.4s;
+box-shadow:0 10px 20px rgba(0,0,0,.2);
+
+}
+
+.card:hover{
+
+transform:translateY(-10px);
+
+}
+
+.card h3{
+
+margin:15px 0;
+
+}
+
+.architecture{
+
+background:rgba(255,255,255,.12);
+backdrop-filter:blur(10px);
+padding:40px;
+border-radius:20px;
+margin-top:30px;
+
+}
+
+.architecture pre{
+
+font-size:18px;
+line-height:2;
+color:#fff;
+overflow:auto;
+
+}
+
+footer{
+
+margin-top:60px;
+padding:30px;
+text-align:center;
+font-size:18px;
+background:rgba(0,0,0,.2);
+
+}
+
+.btn{
+
+display:inline-block;
+margin-top:30px;
+padding:15px 40px;
+background:#38bdf8;
+color:white;
+font-size:20px;
+text-decoration:none;
+border-radius:40px;
+transition:.4s;
+
+}
+
+.btn:hover{
+
+background:#0284c7;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+
+<h1>🚀 DevOps Infrastructure Project</h1>
+
+<p>Terraform • AWS • Docker • EC2 • VPC • Nginx</p>
+
+</header>
+
+<div class="hero">
+
+<h2>Hello from Docker on AWS EC2</h2>
+
+<p>
+
+This infrastructure was provisioned using Terraform.
+
+Docker is installed on the EC2 instance and this web application is running inside an Nginx container.
+
+</p>
+
+<a href="#" class="btn">Infrastructure Successfully Deployed</a>
+
+</div>
+
+<h2 class="section-title">⚙ Technologies Used</h2>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>Terraform</h3>
+
+<p>Infrastructure as Code</p>
+
+</div>
+
+<div class="card">
+
+<h3>AWS</h3>
+
+<p>Cloud Infrastructure</p>
+
+</div>
+
+<div class="card">
+
+<h3>Docker</h3>
+
+<p>Containerization Platform</p>
+
+</div>
+
+<div class="card">
+
+<h3>Nginx</h3>
+
+<p>Web Server</p>
+
+</div>
+
+<div class="card">
+
+<h3>Ubuntu</h3>
+
+<p>EC2 Operating System</p>
+
+</div>
+
+<div class="card">
+
+<h3>GitHub</h3>
+
+<p>Source Code Repository</p>
+
+</div>
+
+</div>
+
+<h2 class="section-title">🏗 Infrastructure Architecture</h2>
+
+<div class="architecture">
+
+<pre>
+
+Internet
+
+   │
+
+   ▼
+
+Internet Gateway
+
+   │
+
+   ▼
+
+Public Route Table
+
+   │
+
+   ▼
+
+Public Subnet
+
+   │
+
+   ▼
+
+Security Group
+
+   │
+
+   ▼
+
+EC2 Ubuntu Server
+
+   │
+
+   ▼
+
+Docker Engine
+
+   │
+
+   ▼
+
+Nginx Container
+
+   │
+
+   ▼
+
+Responsive Web Application
+
+</pre>
+
+</div>
+
+<h2 class="section-title">✨ Project Features</h2>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>✔ Infrastructure as Code</h3>
+
+<p>Complete AWS infrastructure provisioned using Terraform.</p>
+
+</div>
+
+<div class="card">
+
+<h3>✔ Docker Deployment</h3>
+
+<p>Application deployed inside Docker container.</p>
+
+</div>
+
+<div class="card">
+
+<h3>✔ Secure Network</h3>
+
+<p>VPC, Public Subnet, Security Groups & Route Tables.</p>
+
+</div>
+
+<div class="card">
+
+<h3>✔ Cloud Ready</h3>
+
+<p>Highly scalable AWS infrastructure.</p>
+
+</div>
+
+</div>
+
+<footer>
+
+<h2>👨‍💻 Developed by Akash Bajgire</h2>
+
+<p>DevOps Engineer | AWS | Terraform | Docker | Jenkins | Kubernetes</p>
+
+</footer>
+
+</div>
+
+</body>
+</html>
