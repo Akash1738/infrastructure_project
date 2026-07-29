@@ -16,6 +16,18 @@ pipeline {
             }
         }
 
+        stage('Debug Workspace') {
+            steps {
+                sh '''
+                echo "Current Directory:"
+                pwd
+
+                echo "Workspace Files:"
+                ls -R
+                '''
+            }
+        }
+
         stage('Terraform Init') {
             steps {
                 dir('terraform') {
@@ -49,8 +61,8 @@ pipeline {
         stage('Configure EC2 with Ansible') {
             steps {
                 dir('ansible') {
-                    sh 'ansible all -m ping'
-                    sh 'ansible-playbook playbook.yml'
+                    sh 'ansible -i inventory all -m ping'
+                    sh 'ansible-playbook -i inventory playbook.yml'
                 }
             }
         }
@@ -58,10 +70,10 @@ pipeline {
         stage('Verify Files') {
             steps {
                 sh '''
-                    pwd
-                    ls -la
-                    test -f Dockerfile
-                    test -f index.html
+                pwd
+                ls -la
+                test -f Dockerfile
+                test -f index.html
                 '''
             }
         }
@@ -81,10 +93,10 @@ pipeline {
         stage('Run Container') {
             steps {
                 sh """
-                    docker run -d \
-                    --name ${webserver} \
-                    -p ${3000}:${80} \
-                    ${my-nginx}
+                docker run -d \
+                  --name ${webserver} \
+                  -p ${3000}:${80} \
+                  ${my-nginx}
                 """
             }
         }
@@ -92,9 +104,9 @@ pipeline {
         stage('Verify Deployment') {
             steps {
                 sh '''
-                    sleep 5
-                    docker ps
-                    curl http://localhost:3000
+                sleep 5
+                docker ps
+                curl http://localhost:3000
                 '''
             }
         }
