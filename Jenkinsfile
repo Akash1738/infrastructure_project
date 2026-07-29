@@ -16,58 +16,85 @@ pipeline {
             }
         }
 
+        stage('Terraform Init') {
+            steps {
+                dir('terraform') {
+                    sh 'terraform init'
+                }
+            }
+        }
+
+        stage('Terraform Validate') {
+            steps {
+                dir('terraform') {
+                    sh 'terraform validate'
+                }
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                dir('terraform') {
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+
+        stage('Wait for EC2') {
+            steps {
+                sh 'sleep 60'
+            }
+        }
+
+        stage('Configure EC2 with Ansible') {
+            steps {
+                dir('ansible') {
+                    sh 'ansible all -m ping'
+                    sh 'ansible-playbook playbook.yml'
+                }
+            }
+        }
+
         stage('Verify Files') {
             steps {
                 sh '''
-                echo "Current Directory:"
-                pwd
-
-                echo "Workspace Files:"
-                ls -la
-
-                test -f Dockerfile
-                test -f index.html
+                    pwd
+                    ls -la
+                    test -f Dockerfile
+                    test -f index.html
                 '''
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh '''
-                docker build -t my-nginx .
-                '''
+                sh "docker build -t ${my-nginx} ."
             }
         }
 
         stage('Remove Old Container') {
             steps {
-                sh '''
-                docker rm -f webserver || true
-                '''
+                sh "docker rm -f ${webserver} || true"
             }
         }
 
         stage('Run Container') {
             steps {
-                sh '''
-                docker run -d \
-                  --name webserver \
-                  -p 3000:80 \
-                  my-nginx
-                '''
+                sh """
+                    docker run -d \
+                    --name ${webserver} \
+                    -p ${3000}:${80} \
+                    ${my-nginx}
+                """
             }
         }
 
         stage('Verify Deployment') {
             steps {
                 sh '''
-                sleep 5
-
-                docker ps
-
-                echo "Checking application..."
-
-                curl http://localhost:3000
+                    sleep 5
+                    docker ps
+                    curl http://localhost:3000
                 '''
             }
         }
@@ -79,11 +106,11 @@ pipeline {
         }
 
         success {
-            echo "Deployment Successful"
+            echo 'Pipeline completed successfully.'
         }
 
         failure {
-            echo "Deployment Failed"
+            echo 'Pipeline failed.'
         }
     }
 }
