@@ -1,5 +1,6 @@
-region="ap-south-1"
-
-key_name="infra"
-
-instance_type="t3.small"
+region        = "ap-south-1"
+vpc_id        = "vpc-02f7a4c516baee7d2"
+subnet_id     = "subnet-096e5fffa72b98f19"
+ami           = "ami-01a00762f46d584a1"
+instance_type = "t2.micro"
+key_name      = "agent-key-new"
