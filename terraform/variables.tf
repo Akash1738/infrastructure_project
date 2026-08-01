@@ -1,40 +1,25 @@
 variable "region" {
-  description = "AWS Region"
-  type        = string
-  default     = "ap-south-1"
+  default = "ap-south-1"
 }
 
 variable "vpc_cidr" {
-  description = "VPC CIDR"
-  type        = string
-  default     = "10.0.0.0/16"
+  default = "10.0.0.0/16"
 }
 
 variable "public_subnet_cidr" {
-  description = "Public Subnet CIDR"
-  type        = string
-  default     = "10.0.1.0/24"
+  default = "10.0.1.0/24"
 }
 
 variable "availability_zone" {
-  description = "Availability Zone"
-  type        = string
-  default     = "ap-south-1a"
+  default = "ap-south-1a"
 }
 
 variable "ami" {
-  description = "Ubuntu AMI"
-  type        = string
-  default     = "ami-01a00762f46d584a1"
+  default = "ami-0f58b397bc5c1f2e8"
 }
 
 variable "instance_type" {
-  description = "EC2 Instance Type"
-  type        = string
-  default     = "t3.small"
+  default = "t2.micro"
 }
 
-variable "key_name" {
-  description = "agent-key-new"
-  type        = string
-}
+variable "key_name" {}
