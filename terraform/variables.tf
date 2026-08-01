@@ -2,24 +2,22 @@ variable "region" {
   default = "ap-south-1"
 }
 
-variable "vpc_cidr" {
-  default = "10.0.0.0/16"
+variable "vpc_id" {
+  default = "vpc-02f7a4c516baee7d2"
 }
 
-variable "public_subnet_cidr" {
-  default = "10.0.1.0/24"
-}
-
-variable "availability_zone" {
-  default = "ap-south-1a"
+variable "subnet_id" {
+  default = "subnet-096e5fffa72b98f19"
 }
 
 variable "ami" {
-  default = "ami-0f58b397bc5c1f2e8"
+  default = "ami-01a00762f46d584a1"
 }
 
 variable "instance_type" {
   default = "t2.micro"
 }
 
-variable "key_name" {}
+variable "key_name" {
+  default = "agent-key-new"
+}
