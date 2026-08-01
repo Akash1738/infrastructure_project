@@ -1,20 +1,18 @@
-resource "aws_instance" "jenkins_server" {
+resource "aws_instance" "server" {
 
-  ami                    = var.ami
+  ami = var.ami
 
-  instance_type          = var.instance_type
+  instance_type = var.instance_type
 
-  subnet_id              = aws_subnet.public_subnet.id
+  subnet_id = aws_subnet.public_subnet.id
 
-  vpc_security_group_ids = [aws_security_group.jenkins_sg.id]
+  vpc_security_group_ids = [aws_security_group.devops_sg.id]
 
-  key_name               = var.key_name
-
-  associate_public_ip_address = true
+  key_name = var.key_name
 
   tags = {
 
-    Name = "Jenkins-Server"
+    Name = "Terraform-Server"
 
   }
 
