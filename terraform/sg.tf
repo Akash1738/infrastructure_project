@@ -1,14 +1,10 @@
-resource "aws_security_group" "jenkins_sg" {
+resource "aws_security_group" "devops_sg" {
 
-  name        = "jenkins-sg"
-
-  description = "Allow SSH and Jenkins"
+  name = "DevOps-SG"
 
   vpc_id = aws_vpc.devops_vpc.id
 
   ingress {
-
-    description = "SSH"
 
     from_port = 22
 
@@ -22,11 +18,21 @@ resource "aws_security_group" "jenkins_sg" {
 
   ingress {
 
-    description = "Jenkins"
+    from_port = 80
 
-    from_port = 8080
+    to_port = 80
 
-    to_port = 8080
+    protocol = "tcp"
+
+    cidr_blocks = ["0.0.0.0/0"]
+
+  }
+
+  ingress {
+
+    from_port = 3000
+
+    to_port = 3000
 
     protocol = "tcp"
 
@@ -46,9 +52,4 @@ resource "aws_security_group" "jenkins_sg" {
 
   }
 
-  tags = {
-
-    Name = "Jenkins-SG"
-
-  }
 }
