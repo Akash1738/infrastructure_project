@@ -1,29 +1,27 @@
 variable "region" {
-  type    = string
   default = "ap-south-1"
 }
 
-variable "vpc_id" {
-  type    = string
-  default = "vpc-02f7a4c516baee7d2"
+variable "vpc_cidr" {
+  default = "10.0.0.0/16"
 }
 
-variable "subnet_id" {
-  type    = string
-  default = "subnet-096e5fffa72b98f19"
+variable "public_subnet_cidr" {
+  default = "10.0.1.0/24"
+}
+
+variable "availability_zone" {
+  default = "ap-south-1a"
 }
 
 variable "ami" {
-  type    = string
   default = "ami-01a00762f46d584a1"
 }
 
 variable "instance_type" {
-  type    = string
-  default = "t2.micro"
+  default = "t3.small"
 }
 
 variable "key_name" {
-  type    = string
   default = "agent-key-new"
 }
