@@ -19,11 +19,11 @@ pipeline {
         stage('Debug Workspace') {
             steps {
                 sh '''
-                echo "Current Directory:"
-                pwd
+                    echo "Current Directory:"
+                    pwd
 
-                echo "Workspace Files:"
-                ls -R
+                    echo "Workspace Files:"
+                    ls -R
                 '''
             }
         }
@@ -70,44 +70,49 @@ pipeline {
         stage('Verify Files') {
             steps {
                 sh '''
-                pwd
-                ls -la
-                test -f Dockerfile
-                test -f index.html
+                    pwd
+                    ls -la
+
+                    test -f Dockerfile
+                    test -f index.html
                 '''
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${my-nginx} ."
+                sh """
+                    docker build -t ${my-nginx} .
+                """
             }
         }
 
         stage('Remove Old Container') {
             steps {
-                sh "docker rm -f ${webserver} || true"
+                sh """
+                    docker rm -f ${webserver} || true
+                """
             }
         }
 
-        stage('Run Container') {
+        stage('Run Docker Container') {
             steps {
                 sh """
-                docker run -d \
-                  --name ${webserver} \
-                  -p ${3000}:${80} \
-                  ${my-nginx}
+                    docker run -d \
+                        --name ${webserver} \
+                        -p ${3000}:${80} \
+                        ${my-nginx}
                 """
             }
         }
 
         stage('Verify Deployment') {
             steps {
-                sh '''
-                sleep 5
-                docker ps
-                curl http://localhost:3000
-                '''
+                sh """
+                    sleep 5
+                    docker ps
+                    curl http://localhost:${3000}
+                """
             }
         }
     }
