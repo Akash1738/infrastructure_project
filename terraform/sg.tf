@@ -1,7 +1,7 @@
 resource "aws_security_group" "devops_sg" {
 
   name        = "DevOps-SG"
-  description = "Security Group for Infrastructure Project"
+  description = "Allow SSH HTTP and App"
   vpc_id      = var.vpc_id
 
   ingress {
