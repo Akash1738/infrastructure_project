@@ -10,9 +10,15 @@ resource "aws_route_table" "public_rt" {
 
   }
 
+  tags = {
+
+    Name = "Public-RT"
+
+  }
+
 }
 
-resource "aws_route_table_association" "rt_association" {
+resource "aws_route_table_association" "public_assoc" {
 
   subnet_id = aws_subnet.public_subnet.id
 
