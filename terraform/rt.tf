@@ -1,6 +1,6 @@
 resource "aws_route_table" "public_rt" {
 
-  vpc_id = aws_vpc.devops_vpc.id
+  vpc_id = vpc-02f7a4c516baee7d2
 
   route {
 
@@ -16,7 +16,7 @@ resource "aws_route_table" "public_rt" {
 
 resource "aws_route_table_association" "public_assoc" {
 
-  subnet_id      = aws_subnet.public_subnet.id
+  subnet_id      = subnet-096e5fffa72b98f19
 
   route_table_id = aws_route_table.public_rt.id
 }
