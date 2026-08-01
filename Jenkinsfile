@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "my-nginx"
+        IMAGE_NAME     = "my-nginx"
         CONTAINER_NAME = "webserver"
-        HOST_PORT = "3000"
+        HOST_PORT      = "3000"
         CONTAINER_PORT = "80"
     }
 
@@ -21,7 +21,6 @@ pipeline {
                 sh '''
                     echo "Current Directory:"
                     pwd
-
                     echo "Workspace Files:"
                     ls -R
                 '''
@@ -31,7 +30,11 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 dir('terraform') {
-                    sh 'terraform init'
+                    sh '''
+                        rm -rf .terraform
+                        rm -f .terraform.lock.hcl
+                        terraform init -upgrade
+                    '''
                 }
             }
         }
@@ -72,7 +75,6 @@ pipeline {
                 sh '''
                     pwd
                     ls -la
-
                     test -f Dockerfile
                     test -f index.html
                 '''
@@ -81,17 +83,13 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh """
-                    docker build -t ${my-nginx} .
-                """
+                sh "docker build -t my-nginx ."
             }
         }
 
         stage('Remove Old Container') {
             steps {
-                sh """
-                    docker rm -f ${webserver} || true
-                """
+                sh "docker rm -f webserver || true"
             }
         }
 
@@ -99,9 +97,9 @@ pipeline {
             steps {
                 sh """
                     docker run -d \
-                        --name ${webserver} \
-                        -p ${3000}:${80} \
-                        ${my-nginx}
+                        --name $webserver \
+                        -p 3000:80 \
+                        my-nginx
                 """
             }
         }
@@ -111,7 +109,7 @@ pipeline {
                 sh """
                     sleep 5
                     docker ps
-                    curl http://localhost:${3000}
+                    curl http://localhost:3000
                 """
             }
         }
