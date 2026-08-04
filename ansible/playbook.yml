@@ -1,6 +1,6 @@
 ---
 - name: Install Java Docker Git
-  hosts: servers
+  hosts: web
   become: yes
 
   tasks:
