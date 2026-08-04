@@ -83,7 +83,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t my-nginx ."
+                sh "docker build -t webserver ."
             }
         }
 
@@ -97,7 +97,7 @@ pipeline {
             steps {
                 sh """
                     docker run -d \
-                        --name $webserver \
+                        --name webserver \
                         -p 3000:80 \
                         my-nginx
                 """
